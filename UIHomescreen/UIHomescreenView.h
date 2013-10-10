@@ -15,4 +15,6 @@
 @property (nonatomic, assign) NSObject<UIHomescreenDataSource> *dataSource;
 @property (nonatomic, assign) NSObject<UIHomescreenDelegate> *delegate;
 
+- (void)loadIcons;
+
 @end

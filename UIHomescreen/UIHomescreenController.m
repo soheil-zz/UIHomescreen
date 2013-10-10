@@ -25,15 +25,19 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.delegate = self;
     self.dataSource = self;
-    [self setViewControllers:[NSArray arrayWithObject:[self viewControllerAtIndex:0]]
-                   direction:UIPageViewControllerNavigationDirectionForward
-                    animated:NO
-                  completion:nil];
     UIPageControl *pageControl = [UIPageControl appearance];
     pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
     pageControl.currentPageIndicatorTintColor = [UIColor redColor];
     
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setViewControllers:[NSArray arrayWithObject:[self viewControllerAtIndex:0]]
+                   direction:UIPageViewControllerNavigationDirectionForward
+                    animated:NO
+                  completion:nil];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
@@ -58,6 +62,7 @@
     UIHomescreenView *homescreenView = [[UIHomescreenView alloc] init];
     homescreenView.delegate = self.viewDelegate;
     homescreenView.dataSource = self.viewDataSource;
+    [homescreenView loadIcons];
     viewController.view = homescreenView;
     
     //@TODO: frame should auto size
@@ -72,7 +77,7 @@
 {
     // The selected item reflected in the page indicator.
     NSLog(@"presentationIndexForPageViewController");
-    return 1;
+    return 0;
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController

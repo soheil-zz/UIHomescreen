@@ -10,4 +10,12 @@
 
 @implementation IndexPath3D
 
+- (IndexPath3D *)initWithPage:(NSUInteger)page withRow:(NSUInteger)row withColumn:(NSUInteger)column
+{
+    self.page = page;
+    self.row = row;
+    self.column = column;
+    return self;
+}
+
 @end

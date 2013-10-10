@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIHomescreenView.h"
+#import "UIHomescreenIcon.h"
+#import "IndexPath3D.h"
 #import "UIHomescreenDataSource.h"
 #import "UIHomescreenDelegate.h"
 

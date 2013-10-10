@@ -14,4 +14,6 @@
 @property (readwrite, nonatomic) int row;
 @property (readwrite, nonatomic) int column;
 
+- (IndexPath3D *)initWithPage:(NSUInteger)page withRow:(NSUInteger)row withColumn:(NSUInteger)column;
+
 @end

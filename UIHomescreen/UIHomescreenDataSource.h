@@ -7,14 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UIHomescreenIcon.h"
-#import "UIHomescreenView.h"
-#import "IndexPath3D.h"
+
+@protocol UIHomescreenDataSource;
+@class UIHomescreenView, UIHomescreenIcon, IndexPath3D;
 
 @protocol UIHomescreenDataSource <NSObject>
 
 @required
 
-- (UIHomescreenIcon *)homescreenView:(UIView *)homescreenView iconForPositionAtIndexPath3D:(IndexPath3D *)indexPath;
+- (UIHomescreenIcon *)homescreenView:(UIHomescreenView *)homescreenView iconForPositionAtIndexPath3D:(IndexPath3D *)indexPath;
 
 @end

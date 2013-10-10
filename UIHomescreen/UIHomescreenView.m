@@ -8,21 +8,33 @@
 
 #import "UIHomescreenView.h"
 #import "UIHomescreenIcon.h"
+#import "IndexPath3D.h"
 
 @implementation UIHomescreenView
+
+@synthesize dataSource;
 
 - (id)init
 {
     self = [super init];
     self.backgroundColor = [UIColor grayColor];
-    for (int i = 0; i < 3; i++){
-        UIHomescreenIcon *icon = [[UIHomescreenIcon alloc] initWithImage:[UIImage imageNamed:@"entelo.png"]];
-        CGRect frame = icon.frame;
-        frame.origin.x = i*50;
-        icon.frame = frame;
-        [self addSubview:icon];
-    }
     return self;
+}
+
+- (void)loadIcons
+{
+    for (int i = 0; i < 5; i++){
+        for (int j = 0; j < 4; j++){
+            IndexPath3D *indexPath = [[IndexPath3D alloc] initWithPage:0 withRow:i withColumn:j];
+            NSLog(@"calling datasource");
+            UIHomescreenIcon *icon = [self.dataSource homescreenView:self iconForPositionAtIndexPath3D:indexPath];
+            CGRect frame = icon.frame;
+            frame.origin.x = 10 + j * 80;
+            frame.origin.y = 10 + i * 92;
+            icon.frame = frame;
+            [self addSubview:icon];
+        }
+    }
 }
 
 @end

@@ -25,6 +25,7 @@
 		5B4A7B7D1806268800783174 /* UIImage+MultiFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A7B631806268800783174 /* UIImage+MultiFormat.m */; };
 		5B4A7B7E1806268800783174 /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A7B651806268800783174 /* UIImage+WebP.m */; };
 		5B4A7B7F1806268800783174 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A7B671806268800783174 /* UIImageView+WebCache.m */; };
+		5B4A7B921806297E00783174 /* UIHomescreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A7B911806297E00783174 /* UIHomescreenController.m */; };
 		5B601C9118062486006CB8E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B601C9018062486006CB8E4 /* Foundation.framework */; };
 		5B601C9618062486006CB8E4 /* UIHomescreen.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5B601C9518062486006CB8E4 /* UIHomescreen.h */; };
 		5B601C9818062486006CB8E4 /* UIHomescreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B601C9718062486006CB8E4 /* UIHomescreen.m */; };
@@ -139,6 +140,8 @@
 		5B4A7B671806268800783174 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		5B4A7B681806268800783174 /* SDWebImage.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SDWebImage.podspec; sourceTree = "<group>"; };
 		5B4A7B691806268800783174 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SDWebImage.xcodeproj; sourceTree = "<group>"; };
+		5B4A7B901806297E00783174 /* UIHomescreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIHomescreenController.h; sourceTree = "<group>"; };
+		5B4A7B911806297E00783174 /* UIHomescreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIHomescreenController.m; sourceTree = "<group>"; };
 		5B601C8D18062486006CB8E4 /* libUIHomescreen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUIHomescreen.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B601C9018062486006CB8E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5B601C9418062486006CB8E4 /* UIHomescreen-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIHomescreen-Prefix.pch"; sourceTree = "<group>"; };
@@ -335,6 +338,8 @@
 				5B601C9518062486006CB8E4 /* UIHomescreen.h */,
 				5B601C9718062486006CB8E4 /* UIHomescreen.m */,
 				5B601C9318062486006CB8E4 /* Supporting Files */,
+				5B4A7B901806297E00783174 /* UIHomescreenController.h */,
+				5B4A7B911806297E00783174 /* UIHomescreenController.m */,
 			);
 			path = UIHomescreen;
 			sourceTree = "<group>";
@@ -500,6 +505,7 @@
 				5B4A7B701806268800783174 /* main.m in Sources */,
 				5B4A7B781806268800783174 /* SDWebImageDownloaderOperation.m in Sources */,
 				5B4A7B7C1806268800783174 /* UIImage+GIF.m in Sources */,
+				5B4A7B921806297E00783174 /* UIHomescreenController.m in Sources */,
 				5B4A7B751806268800783174 /* SDWebImageCompat.m in Sources */,
 				5B4A7B731806268800783174 /* NSData+GIF.m in Sources */,
 				5B4A7B6F1806268800783174 /* DetailViewController.m in Sources */,

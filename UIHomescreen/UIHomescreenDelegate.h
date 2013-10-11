@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol UIHomescreenDelegate;
+@class UIHomescreenView, IndexPath3D;
+
 @protocol UIHomescreenDelegate <NSObject>
+@required
+
+- (void)homescreenView:(UIHomescreenView *)homescreenView didSelectRowAtIndexPath3D:(IndexPath3D *)indexPath;
 
 @end

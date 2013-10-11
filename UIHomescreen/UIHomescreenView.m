@@ -28,8 +28,11 @@
             IndexPath3D *indexPath = [[IndexPath3D alloc] initWithPage:0 withRow:i withColumn:j];
             NSLog(@"calling datasource");
             UIHomescreenIcon *icon = [self.dataSource homescreenView:self iconForPositionAtIndexPath3D:indexPath];
+            icon.delegate = self.delegate;
+            icon.indexPath = indexPath;
+            icon.homescreenView = self;
             CGRect frame = icon.frame;
-            frame.origin.x = 10 + j * 80;
+            frame.origin.x = 10 + j * 75;
             frame.origin.y = 10 + i * 92;
             icon.frame = frame;
             [self addSubview:icon];

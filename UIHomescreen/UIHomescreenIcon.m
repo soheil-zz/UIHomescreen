@@ -11,43 +11,63 @@
 
 @implementation UIHomescreenIcon
 
+- (id)init
+{
+    self = [self initWithFrame:CGRectMake(0, 0, 73, 90)];
+    self.icon = [[UIImageView alloc] initWithFrame:CGRectMake(7, 0, 64, 64)];
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 67, 73, 10)];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+    [self addGestureRecognizer:tapGesture];
+
+    [self addSubview:self.icon];
+    [self addSubview:self.label];
+    
+    return self;
+}
+
 - (id)initWithImageURL:(NSString *)imageURL
 {
     self = [self init];
     self.imageURL = imageURL;
     
     //@TODO: fix placeholder -- user a generic image
-    [self setImageWithURL:[NSURL URLWithString:imageURL]
-                              placeholderImage:[UIImage imageNamed:kImagePlaceholder]];
+    [self.icon setImageWithURL:[NSURL URLWithString:imageURL]
+         placeholderImage:[UIImage imageNamed:kImagePlaceholder]
+                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
 
+                }];
     [self applyStyle];
+    
     return self;
 }
 
 - (id)initWithImage:(UIImage *)image
 {
-    self = [super initWithImage:image];
+    self = [self init];
+    self.icon = [self.icon initWithImage:image];
     [self applyStyle];
+    
     return self;
+}
+
+- (void)tap
+{
+    self.icon.alpha = .1;
+    [self.delegate homescreenView:self.homescreenView didSelectRowAtIndexPath3D:self.indexPath];
 }
 
 - (void)applyStyle
 {
-    self.layer.masksToBounds = YES;
-    self.layer.cornerRadius = 10.0;
-//    self.layer.borderColor = [UIColor whiteColor].CGColor;
-//    self.layer.borderWidth = 1.0f;
-    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    self.layer.shouldRasterize = YES;
-    self.clipsToBounds = YES;
+    self.icon.layer.masksToBounds = YES;
+    self.icon.layer.cornerRadius = 10.0;
+    self.icon.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    self.icon.layer.shouldRasterize = YES;
+    self.icon.clipsToBounds = YES;
     
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.frame = self.frame;
-    gradientLayer.colors = [NSArray arrayWithObjects:
-                            (id)[[UIColor colorWithRed:0.988 green:0.988 blue:0.988 alpha:1.0] CGColor],
-                            (id)[[UIColor colorWithRed:0.9294 green:0.9294 blue:0.949 alpha:1.0] CGColor],
-                            nil];
-    [self.layer insertSublayer:gradientLayer atIndex:0];
+    self.label.textColor = [UIColor whiteColor];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    [self.label setFont:[UIFont systemFontOfSize:12]];
 }
 
 @end

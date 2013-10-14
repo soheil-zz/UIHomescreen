@@ -11,13 +11,13 @@
 
 @interface UIHomescreenController ()
 {
-    NSInteger selectedIndex;
+    NSInteger selectedIndex, pageCount;
 }
 @end
 
 @implementation UIHomescreenController
 
-- (UIHomescreenController *)init
+- (UIHomescreenController *)initWithTotalIconCount:(NSUInteger)totalIconCount
 {
     self = [self initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
                    navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
@@ -25,19 +25,49 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.delegate = self;
     self.dataSource = self;
+    
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    self.rows = screenSize.height > 480 ? 5 : 4;
+    self.columns = 4;
+    self.spacingRows = 92;
+    self.spacingColumns = 75;
+    self.totalIconCount = totalIconCount;
+
     UIPageControl *pageControl = [UIPageControl appearance];
+    //@TODO: nice to have: have a central place for colors + view
     pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
     pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+    pageControl.backgroundColor = [UIColor grayColor];
+    
+    
+    [self setViewControllers:[NSArray arrayWithObject:[self viewControllerAtIndex:0]]
+                   direction:UIPageViewControllerNavigationDirectionForward
+                    animated:YES
+                  completion:nil];
     
     return self;
 }
 
+- (void)moveToViewControllerAtIndex:(NSUInteger)index
+{
+    // already there no need to move
+    if (selectedIndex == index) return;
+
+    [self setViewControllers:[NSArray arrayWithObject:[self viewControllerAtIndex:index]]
+                   direction:selectedIndex > index
+     ? UIPageViewControllerNavigationDirectionReverse : UIPageViewControllerNavigationDirectionForward
+                    animated:YES
+                  completion:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self setViewControllers:[NSArray arrayWithObject:[self viewControllerAtIndex:0]]
-                   direction:UIPageViewControllerNavigationDirectionForward
-                    animated:NO
-                  completion:nil];
+    //@TODO: nice to have: have a central place for colors + view - same as above
+    UIPageControl *pageControl = [UIPageControl appearance];
+    if (pageCount > 10) {
+        pageControl.pageIndicatorTintColor = [UIColor grayColor];
+        pageControl.currentPageIndicatorTintColor = [UIColor grayColor];
+    }
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
@@ -59,32 +89,42 @@
 {
     NSLog(@"viewControllerAtIndex %d", (int)index);
     UIViewController *viewController = [[UIViewController alloc] init];
-    UIHomescreenView *homescreenView = [[UIHomescreenView alloc] init];
-    homescreenView.delegate = self.viewDelegate;
-    homescreenView.dataSource = self.viewDataSource;
-    [homescreenView loadIcons];
-    viewController.view = homescreenView;
+    _homescreenView = [[UIHomescreenView alloc] init];
+
+    //@TODO: make homescreenView properties private and pass them through init
+    _homescreenView.rows = self.rows;
+    _homescreenView.columns = self.columns;
+    _homescreenView.spacingRows = self.spacingRows;
+    _homescreenView.spacingColumns = self.spacingColumns;
     
-    //@TODO: frame should auto size
-    CGRect bounds = viewController.view.bounds;
-    bounds.origin.y = -65;
-    viewController.view.bounds = bounds;
+    _homescreenView.delegate = self.viewDelegate;
+    _homescreenView.dataSource = self.viewDataSource;
+    //@TODO:
+    // if datasource has data for page: index
+    [_homescreenView loadIconsForPage:index];
+    // else show loading hud and wait and move to next page automatically once page is loaded
+    viewController.view = _homescreenView;
     
     return viewController;
+}
+
+- (void)setTotalIconCount:(NSUInteger)totalIconCount
+{
+    NSUInteger perPage = self.rows * self.columns;
+    pageCount = (totalIconCount + perPage - 1) / perPage;
+    _totalIconCount = totalIconCount;
 }
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
     // The selected item reflected in the page indicator.
-    NSLog(@"presentationIndexForPageViewController");
     return 0;
 }
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
     // The number of items reflected in the page indicator.
-    NSLog(@"presentationCountForPageViewController");
-    return 3;
+    return pageCount;
 }
 
 @end

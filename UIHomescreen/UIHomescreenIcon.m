@@ -53,8 +53,14 @@
 
 - (void)tap
 {
-    self.icon.alpha = .1;
-    [self.delegate homescreenView:self.homescreenView didSelectRowAtIndexPath3D:self.indexPath];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         self.icon.alpha = .6;
+                     }
+                     completion:^(BOOL finished) {
+                         self.icon.alpha = 1;
+                         [self.delegate homescreenView:self.homescreenView didSelectRowAtIndexPath3D:self.indexPath];
+                     }];
 }
 
 - (void)applyStyle

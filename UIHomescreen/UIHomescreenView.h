@@ -14,7 +14,12 @@
 
 @property (nonatomic, assign) NSObject<UIHomescreenDataSource> *dataSource;
 @property (nonatomic, assign) NSObject<UIHomescreenDelegate> *delegate;
+@property (nonatomic, assign) NSUInteger rows;
+@property (nonatomic, assign) NSUInteger columns;
+@property (nonatomic, assign) float spacingRows;
+@property (nonatomic, assign) float spacingColumns;
 
-- (void)loadIcons;
+- (void)loadIconsForPage:(NSUInteger)page;
+- (void)reloadData;
 
 @end

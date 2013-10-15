@@ -6,3 +6,5 @@ Create a view similar to iOS home screen (SpringBoard). Asynchronously loads ico
 ## Demo
 
 [Homer](https://github.com/syasrebi/Homer) is a sample project that demonstrates several features of UIHomescreen. It is an universal iPad/iPhone application.
+
+![Screenshot](UIHomescreen/screenshot.jpg)

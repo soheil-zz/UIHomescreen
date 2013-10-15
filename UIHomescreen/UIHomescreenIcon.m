@@ -33,7 +33,7 @@
     
     //@TODO: fix placeholder -- user a generic image
     [self.icon setImageWithURL:[NSURL URLWithString:imageURL]
-         placeholderImage:[UIImage imageNamed:kImagePlaceholder]
+         placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
 
                 }];

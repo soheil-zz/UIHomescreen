@@ -22,7 +22,6 @@
     self = [self initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
                    navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
                                  options:nil];
-    self.view.backgroundColor = [UIColor whiteColor];
     self.delegate = self;
     self.dataSource = self;
     
@@ -32,13 +31,7 @@
     self.spacingRows = 92;
     self.spacingColumns = 75;
     self.totalIconCount = totalIconCount;
-
-    UIPageControl *pageControl = [UIPageControl appearance];
-    //@TODO: nice to have: have a central place for colors + view
-    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
-    pageControl.currentPageIndicatorTintColor = [UIColor redColor];
-    pageControl.backgroundColor = [UIColor grayColor];
-    
+    self.view.backgroundColor = [UIColor grayColor];
     
     [self setViewControllers:[NSArray arrayWithObject:[self viewControllerAtIndex:0]]
                    direction:UIPageViewControllerNavigationDirectionForward
@@ -50,23 +43,28 @@
 
 - (void)moveToViewControllerAtIndex:(NSUInteger)index
 {
+    NSLog(@"moveToViewControllerAtIndex: %d selected index: %d", (int)index, (int)selectedIndex);
     // already there no need to move
     if (selectedIndex == index) return;
 
     [self setViewControllers:[NSArray arrayWithObject:[self viewControllerAtIndex:index]]
-                   direction:selectedIndex > index
-     ? UIPageViewControllerNavigationDirectionReverse : UIPageViewControllerNavigationDirectionForward
+                   direction:(index > selectedIndex ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse)
                     animated:YES
                   completion:nil];
+    selectedIndex = index;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //@TODO: nice to have: have a central place for colors + view - same as above
     UIPageControl *pageControl = [UIPageControl appearance];
-    if (pageCount > 10) {
-        pageControl.pageIndicatorTintColor = [UIColor grayColor];
-        pageControl.currentPageIndicatorTintColor = [UIColor grayColor];
+    if (self.pageControlHidden) {
+        pageControl.pageIndicatorTintColor = self.homescreenView.backgroundColor;
+        pageControl.currentPageIndicatorTintColor = self.homescreenView.backgroundColor;
+        pageControl.backgroundColor = self.homescreenView.backgroundColor;
+    } else {
+        pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+        pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+        pageControl.backgroundColor = [UIColor grayColor];
     }
 }
 
@@ -96,13 +94,11 @@
     _homescreenView.columns = self.columns;
     _homescreenView.spacingRows = self.spacingRows;
     _homescreenView.spacingColumns = self.spacingColumns;
+    _homescreenView.backgroundColor = self.view.backgroundColor;
     
     _homescreenView.delegate = self.viewDelegate;
     _homescreenView.dataSource = self.viewDataSource;
-    //@TODO:
-    // if datasource has data for page: index
     [_homescreenView loadIconsForPage:index];
-    // else show loading hud and wait and move to next page automatically once page is loaded
     viewController.view = _homescreenView;
     
     return viewController;

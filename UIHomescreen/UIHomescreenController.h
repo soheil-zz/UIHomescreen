@@ -26,5 +26,6 @@
 @property (nonatomic, assign) float spacingRows;
 @property (nonatomic, assign) float spacingColumns;
 @property (nonatomic, strong) UIHomescreenView *homescreenView;
+@property (nonatomic, assign) BOOL pageControlHidden;
 
 @end

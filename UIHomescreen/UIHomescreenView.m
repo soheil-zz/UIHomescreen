@@ -17,13 +17,6 @@
 
 @synthesize dataSource;
 
-- (id)init
-{
-    self = [super init];
-    self.backgroundColor = [UIColor grayColor];
-    return self;
-}
-
 - (void)loadIconsForPage:(NSUInteger)page
 {
     _page = page;
